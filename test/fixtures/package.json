@@ -1,0 +1,10 @@
+{
+  "main": "worker.js",
+  "pear": {
+    "name": "worker",
+    "type": "terminal"
+  },
+  "dependencies": {
+    "cross-worker": "file:../.."
+  }
+}

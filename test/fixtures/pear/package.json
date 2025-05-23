@@ -1,0 +1,7 @@
+{
+  "main": "index.js",
+  "pear": {
+    "name": "pear",
+    "type": "terminal"
+  }
+}
