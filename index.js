@@ -1,15 +1,7 @@
 const { isBareKit, isPear } = require('which-runtime')
 
 if (isPear) {
-  exports.args = [...Pear.config.args]
-
-  exports.stream = function stream() {
-    return Pear.worker.pipe()
-  }
+  module.exports = require('./lib/pear')
 } else if (isBareKit) {
-  exports.args = [...Bare.argv]
-
-  exports.stream = function stream() {
-    return BareKit.IPC
-  }
+  module.exports = require('./lib/bare-kit')
 }
