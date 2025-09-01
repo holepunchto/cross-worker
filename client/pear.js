@@ -3,11 +3,13 @@ exports.spawn = async function spawn(filename, _, args = []) {
 
   filename = filename.replace(/^[\\|/]/, '')
 
-  const link = Pear.key
-    ? `${Pear.config.applink}/${filename}`
-    : `${Pear.config.dir}${filename}`
+  let link = Pear.key
+    ? `${Pear.config.applink}`
+    : `${Pear.config.dir}`
 
-  const ipc = Pear.worker.run(link, args)
+  link = link.replace(/[\\|/]$/, '')
+
+  const ipc = Pear.worker.run(`${link}/${filename}`, args)
 
   return { IPC: ipc }
 }
