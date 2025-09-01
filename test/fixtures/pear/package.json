@@ -3,5 +3,8 @@
   "pear": {
     "name": "pear",
     "type": "terminal"
+  },
+  "dependencies": {
+    "cross-worker": "file:../../.."
   }
 }
