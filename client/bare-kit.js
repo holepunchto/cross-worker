@@ -1,4 +1,4 @@
-exports.spawn = function spawn(filename, source, args = []) {
+exports.spawn = async function spawn(filename, source, args = []) {
   const { Worklet } = require('react-native-bare-kit')
 
   const worklet = new Worklet()

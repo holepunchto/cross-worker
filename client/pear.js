@@ -1,4 +1,4 @@
-exports.spawn = function spawn(filename, _, args = []) {
+exports.spawn = async function spawn(filename, _, args = []) {
   args = Array.isArray(_) ? _ : args
 
   filename = filename.replace(/^[\\|/]/, '')
