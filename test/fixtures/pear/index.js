@@ -1,3 +1,5 @@
-const pipe = Pear.worker.run('..', ['hello', 'world'])
+const client = require('cross-worker/client')
 
-console.log(pipe)
+const pipe = client.spawn('..', ['hello', 'world'])
+
+console.log('client:', pipe)
