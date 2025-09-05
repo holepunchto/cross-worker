@@ -1,13 +1,14 @@
-const SubProcess = require('bare-subprocess')
+const os = require('bare-os')
+const subprocess = require('bare-subprocess')
 
 exports.spawn = async function spawn(filename, _, args = []) {
-  const RUNTIME = Bare.argv[0]
+  const executable = os.execPath()
 
   args = Array.isArray(_) ? _ : args
 
   filename = filename.replace(/^[\\|/]/, '')
 
-  const child = SubProcess.spawn(RUNTIME, [filename, ...args], {
+  const child = subprocess.spawn(executable, [filename, ...args], {
     stdio: ['inherit', 'inherit', 'inherit', 'pipe']
   })
 
