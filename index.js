@@ -1,7 +1,9 @@
-const { isBareKit, isPear } = require('which-runtime')
+const { isBareKit, isPear, isBare } = require('which-runtime')
 
 if (isPear) {
   module.exports = require('./lib/pear')
+} else if (isBare) {
+  module.exports = require('./lib/bare')
 } else if (isBareKit) {
   module.exports = require('./lib/bare-kit')
 }
