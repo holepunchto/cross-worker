@@ -1,6 +1,6 @@
 {
   "name": "cross-worker",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Cross-runtime worker abstractions",
   "exports": {
     "./package": "./package.json",
