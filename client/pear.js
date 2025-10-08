@@ -1,3 +1,5 @@
+const run = require('pear-run')
+
 exports.spawn = async function spawn(filename, _, args = []) {
   args = Array.isArray(_) ? _ : args
 
@@ -12,7 +14,7 @@ exports.spawn = async function spawn(filename, _, args = []) {
     link = `${link}/${filename}`
   }
 
-  const ipc = Pear.worker.run(link, args)
+  const ipc = run(link, args)
 
   return { IPC: ipc }
 }
