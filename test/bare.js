@@ -14,6 +14,8 @@ const main = async () => {
 
   pipe.on('end', () => console.log('Worker ended'))
   pipe.on('error', (error) => console.error('Worker error:', error))
+
+  pipe.end()
 }
 
 main()
