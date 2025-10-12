@@ -5,7 +5,9 @@ class BareWorker extends EventEmitter {
   constructor(bin, args) {
     super()
     if (Worker.isMainThread) {
-      this.worker = new Worker(bin, args)
+      this.worker = new Worker(bin, {
+        workerData: args
+      })
     } else {
       this.worker = Worker.parentPort
     }
