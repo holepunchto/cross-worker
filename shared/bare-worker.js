@@ -30,7 +30,7 @@ class BareWorker extends EventEmitter {
   }
 
   end() {
-    this.worker.terminate()
+    this.worker.close()
     this.emit('end')
   }
 }
