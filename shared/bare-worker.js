@@ -28,6 +28,11 @@ class BareWorker extends EventEmitter {
   write(data) {
     this.worker.postMessage(data)
   }
+
+  end() {
+    this.worker.terminate()
+    this.emit('end')
+  }
 }
 
 module.exports = BareWorker
