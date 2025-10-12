@@ -17,5 +17,5 @@ exports.spawn = async function spawn(filename, source, args = []) {
 
   const worker = new BareWorker(bin, args)
 
-  return worker
+  return { IPC: worker }
 }

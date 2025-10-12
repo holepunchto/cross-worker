@@ -1,7 +1,7 @@
 const client = require('cross-worker/client')
 
 const main = async () => {
-  const pipe = await client.spawn('./fixtures/bare-bin/bin.js', [
+  const { IPC: pipe } = await client.spawn('./fixtures/bare-bin/bin.js', [
     'Hello',
     'world!'
   ])
