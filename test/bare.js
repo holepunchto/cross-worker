@@ -6,12 +6,13 @@ const main = async () => {
     'world!'
   ])
 
+  console.log('pipe', pipe)
+
   pipe.on('data', (data) => {
     console.log('from worker:', data.toString())
   })
 
   pipe.on('end', () => console.log('Worker ended'))
-  pipe.on('close', () => console.log('Worker closed'))
   pipe.on('error', (error) => console.error('Worker error:', error))
 }
 

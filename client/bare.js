@@ -1,25 +1,21 @@
-const { isWindows } = require('which-runtime')
+const { isWindows, isPear } = require('which-runtime')
 const { spawn: spawnChild } = require('child_process')
+const BareWorker = require('../shared/bare-worker')
 const { dirname, join } = require('path')
 
-exports.spawn = async function spawn(filename, _, args = []) {
-  args = Array.isArray(_) ? _ : args
+exports.spawn = async function spawn(filename, source, args = []) {
+  if (isPear) {
+    const { spawn: spawnPear } = require('./pear')
+    return spawnPear(filename, source, args)
+  }
+
+  args = Array.isArray(source) ? source : args
 
   filename = filename.replace(/^[\\|/]/, '')
   const cwd = dirname(Bare.argv[1])
   const bin = join(cwd, filename)
 
-  const sp = spawnChild(bin, args, {
-    // Overlapped seems to annoy Darwin
-    stdio: [isWindows ? 'overlapped' : 'pipe', 'inherit', 'inherit']
-  })
+  const worker = new BareWorker(bin, args)
 
-  sp.once('exit', (exitCode) => {
-    if (exitCode !== 0) pipe.emit('crash', { exitCode })
-  })
-
-  const pipe = sp.stdio[0]
-  pipe.on('end', () => pipe.end())
-
-  return pipe
+  return worker
 }
