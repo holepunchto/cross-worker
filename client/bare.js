@@ -1,5 +1,4 @@
-const { isWindows, isPear } = require('which-runtime')
-const { spawn: spawnChild } = require('child_process')
+const { isPear } = require('which-runtime')
 const BareWorker = require('../shared/bare-worker')
 const { dirname, join } = require('path')
 
