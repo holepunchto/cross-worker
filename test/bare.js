@@ -1,21 +1,20 @@
+const test = require('brittle')
 const client = require('cross-worker/client')
 
-const main = async () => {
+test('bare worker', async (t) => {
   const { IPC: pipe } = await client.spawn('./fixtures/bare-bin/bin.js', [
     'Hello',
     'world!'
   ])
 
-  console.log('pipe', pipe)
+  t.plan(3)
 
   pipe.on('data', (data) => {
-    console.log('from worker:', data.toString())
+    t.is(data.toString(), 'Hello world!')
   })
-
-  pipe.on('end', () => console.log('Worker ended'))
-  pipe.on('error', (error) => console.error('Worker error:', error))
+  pipe.on('end', () => t.pass('worker ended'))
+  pipe.on('close', () => t.pass('worker close'))
+  pipe.on('error', (err) => t.fail(err.message))
 
   pipe.end()
-}
-
-main()
+})

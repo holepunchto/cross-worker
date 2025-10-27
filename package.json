@@ -24,7 +24,8 @@
     "lib"
   ],
   "scripts": {
-    "test": "prettier . --check"
+    "test": "prettier . --check && bare test/all.js",
+    "format": "prettier . --write"
   },
   "repository": {
     "type": "git",

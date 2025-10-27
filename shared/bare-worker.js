@@ -20,8 +20,12 @@ class BareWorker extends EventEmitter {
       this.emit('error', error)
     })
 
+    this.worker.on('end', () => {
+      this.emit('end')
+    })
+
     this.worker.on('close', () => {
-      this.emit('end') // TODO: is this correct?
+      this.emit('close')
     })
   }
 
