@@ -1,6 +1,6 @@
 {
   "name": "cross-worker",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "Cross-runtime worker abstractions",
   "exports": {
     "./package": "./package.json",
@@ -47,6 +47,6 @@
   "devDependencies": {
     "brittle": "^3.7.0",
     "prettier": "^3.4.1",
-    "prettier-config-standard": "^7.0.0"
+    "prettier-config-holepunch": "^1.0.0"
   }
 }
