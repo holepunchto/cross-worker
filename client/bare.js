@@ -1,6 +1,6 @@
 const { isPear } = require('which-runtime')
 const BareWorker = require('../shared/bare-worker')
-const { dirname, join } = require('path')
+const { dirname, join } = require('bare-path')
 
 exports.spawn = async function spawn(filename, source, args = []) {
   if (isPear) {
