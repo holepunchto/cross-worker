@@ -1,42 +1,55 @@
-const { Worker } = require('bare-worker')
+const Thread = require('bare-thread')
+const Channel = require('bare-channel')
 const EventEmitter = require('events')
 
 class BareWorker extends EventEmitter {
+  _thread = null
+  _channel = null
+  _port = null
+
   constructor(bin, args) {
     super()
-    if (Worker.isMainThread) {
-      this.worker = new Worker(bin, {
-        workerData: args
+    if (Thread.isMainThread) {
+      this._channel = new Channel()
+      this._thread = new Thread(bin, {
+        data: { args, handle: this._channel.handle }
       })
     } else {
-      this.worker = Worker.parentPort
+      this._channel = Channel.from(Bare.Thread.self.data.handle)
     }
 
-    this.worker.on('message', (data) => {
-      this.emit('data', data)
-    })
+    this._port = this._channel.connect()
 
-    this.worker.on('error', (error) => {
-      this.emit('error', error)
-    })
-
-    this.worker.on('end', () => {
+    this._port.on('end', () => {
+      if (!Thread.isMainThread) {
+        this.end()
+      }
       this.emit('end')
     })
 
-    this.worker.on('close', () => {
-      this.emit('close')
-    })
+    this._port.on('close', () => this.emit('close'))
+
+    const read = this._port.createReadStream()
+
+    read.on('data', (data) => this.emit('data', data))
   }
 
   write(data) {
-    this.worker.postMessage(data)
+    this._port.write(data).catch(noop)
   }
 
   end() {
-    this.worker.close()
-    this.emit('end')
+    if (this._thread) {
+      this._port
+        .close()
+        .then(() => this._thread.join())
+        .catch(noop)
+    } else {
+      this._port.unref()
+    }
   }
 }
+
+const noop = () => {}
 
 module.exports = BareWorker

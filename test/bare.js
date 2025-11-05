@@ -11,10 +11,9 @@ test('bare worker', async (t) => {
 
   pipe.on('data', (data) => {
     t.is(data.toString(), 'Hello world!')
+    pipe.end()
   })
   pipe.on('end', () => t.pass('worker ended'))
   pipe.on('close', () => t.pass('worker close'))
   pipe.on('error', (err) => t.fail(err.message))
-
-  pipe.end()
 })
