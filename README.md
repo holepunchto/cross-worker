@@ -8,16 +8,6 @@ npm i cross-worker
 
 ## Usage
 
-Client:
-
-```js
-const client = require('cross-worker/client')
-
-const pipe = client.spawn('./worker', ['arg1', 'arg2'])
-```
-
-Worker:
-
 ```js
 const worker = require('cross-worker')
 
