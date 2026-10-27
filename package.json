@@ -11,7 +11,9 @@
     "lib"
   ],
   "scripts": {
-    "test": "prettier . --check"
+    "format": "prettier --write . && lunte --fix",
+    "lint": "prettier --check . && lunte",
+    "test": "brittle-bare --coverage test.js"
   },
   "repository": {
     "type": "git",
@@ -28,7 +30,8 @@
   },
   "devDependencies": {
     "brittle": "^3.7.0",
+    "lunte": "^1.8.6",
     "prettier": "^3.4.1",
-    "prettier-config-holepunch": "^1.0.0"
+    "prettier-config-holepunch": "^2.0.0"
   }
 }
